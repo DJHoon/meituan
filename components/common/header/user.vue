@@ -1,14 +1,18 @@
 <template>
   <div>
-    <a href="#" class="">立刻登录</a>
-    <a href="#" class="">注册</a>
+    <template v-if="user">
+      <nuxt-link to="/login">立刻登录</nuxt-link>
+    </template>
+    <template v-else>
+
+    </template>
   </div>
 </template>
 
 <script>
-    export default {
-        name: "user"
-    }
+export default {
+    name: "user"
+}
 </script>
 
 <style scoped>

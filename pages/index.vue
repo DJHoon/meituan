@@ -1,15 +1,15 @@
-/* eslint-disable */
 <template>
   <div>
-    <header/>
+
   </div>
 </template>
 
 <script>
-import Header from '@/components/header/index'
 export default {
-  components: {
-    header
+  layouts: 'default',
+  data() {
+    return {
+    }
   }
 }
 </script>
