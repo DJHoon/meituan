@@ -12,7 +12,11 @@ html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
-
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 /* Sections
    ========================================================================== */
 
@@ -22,6 +26,8 @@ html {
 
 body {
   margin: 0;
+  color: #999999;
+  text-align: center;
 }
 
 /**
@@ -75,8 +81,18 @@ pre {
 
 a {
   background-color: transparent;
+  text-decoration: none;
+  color: #999999;
 }
-
+a:hover {
+  color: var(--Orangecolors);
+}
+ul {
+  margin: 0;
+}
+ul>li{
+  list-style: none;
+}
 /**
  * 1. Remove the bottom border in Chrome 57-
  * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
@@ -349,15 +365,20 @@ template {
 /*start header*/
 :root {
   --Orangecolors: #FE8C00;
+  --normalcolor: #999999;
 }
-.change-city {
-  text-decoration: none;
-  color:black;
-  padding: 2px;
-  border: 1px solid #EEE;
-  &:hover {
-    color: var(--Orangecolors);
+.rowStyle {
+  width: 1250px;
+  margin: 0 auto;
+}
+@media screen and (max-width:1300px) {
+  .rowStyle {
+    width: 100%;
   }
 }
-
+@media screen and (max-width:1250px) {
+  .rowStyle {
+    width: 960px;
+  }
+}
 /*end header*/

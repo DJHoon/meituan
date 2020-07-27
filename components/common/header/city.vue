@@ -14,6 +14,12 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="less" scoped>
+.change-city {
+  color:#999;
+  border: 1px solid #666;
+  &:hover {
+     color: var(--Orangecolors);
+   }
+}
 </style>
