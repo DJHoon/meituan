@@ -37,7 +37,7 @@
   line-height: 60px;
   margin-bottom: 20px;
   .header {
-    width: 980px;
+    /*width: 980px;*/
     margin: 0 auto;
     display: flex;
     justify-content: space-between;

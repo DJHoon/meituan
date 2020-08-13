@@ -170,9 +170,9 @@
 
 <style scoped>
 .register-Style {
-  width: 980px;
+  width: 100%;
   margin: 0 auto;
-  text-align: left;
+  /*text-align: left;*/
 }
 a {
   color: #FE8C00;

@@ -1,20 +1,14 @@
 <template>
     <div>
       <div class="search-nav">
-        <el-input  type='text' v-model="searchData" placeholder="请输入内容" class='input-box'size="large" @focus="inputFocus" @blur="inputBlur" clearable></el-input>
+        <el-input  type='text' v-model="searchData" placeholder="请输入内容" class='input-box'size="large" @focus="inputFocus" @blur="inputBlur" @input="inputSearch" clearable></el-input>
         <el-button style="background-color:#ffc300;margin-left:-10px; width:13%;"><i class="el-icon-search" style="color: #222222;font-size: 14px;font-weight: bold"></i></el-button>
         <dl class="hot-search" v-show="isHotSearch">
           <dt>热门搜索</dt>
-          <dd>火锅</dd>
-          <dd>火锅</dd>
-          <dd>火锅</dd>
-          <dd>火锅</dd>
+          <dd v-for="item in top">{{item.name}}</dd>
         </dl>
         <dl class="input-search" v-show="isInputSearch">
-          <dd>火锅1</dd>
-          <dd>火锅2</dd>
-          <dd>火锅3</dd>
-          <dd>火锅4</dd>
+          <dd v-for="item in top" @click="topSearch(item.name)">{{item.name}}</dd>
         </dl>
       </div>
     </div>
@@ -27,7 +21,8 @@ export default {
   data() {
     return {
       isFocus: false,
-      searchData: ''
+      searchData: '',
+      top: []
     }
   },
   computed: {
@@ -38,6 +33,8 @@ export default {
       return this.isFocus && this.searchData
     }
   },
+  mounted() {
+  },
   methods: {
     inputFocus() {
       this.isFocus = true
@@ -47,6 +44,25 @@ export default {
         this.isFocus = false
       }, 200)
     },
+    async inputSearch() {
+      const {status,data: {top}} = await this.$axios.get('/search/top', {
+        params: {
+          input: this.searchData,
+          city: this.$store.state.geo.position.city.replace('市', '')
+        }
+      })
+      if(status == 200) {
+        this.top = top.slice(0, 5)
+      }
+    },
+    topSearch(keyword) {
+      this.$router.push({
+        name: 'product',
+        query: {
+          keyword
+        }
+      })
+    }
   }
 }
 </script>
@@ -70,6 +86,9 @@ export default {
     box-shadow:  0 3px 5px rgba(0,0,0,0.1);
   }
   .hot-search {
+    background-color: white;
+    position: absolute;
+    z-index: 999;
     dt {
       text-align: left;
       height: 20px;
@@ -79,10 +98,18 @@ export default {
     dd {
       float: left;
       padding-top:10px;
-      width: 10%;
+      padding-left: 20px;
+      font-size: 12px;
+    }
+    dd:hover {
+      cursor: pointer;
+      background-color:#ffc300;
     }
   }
   .input-search {
+    background-color: white;
+    position: absolute;
+    z-index: 999;
     dd {
       height: 20px;
       line-height: 20px;
@@ -90,6 +117,7 @@ export default {
       margin: 5px 0px;
     }
     dd:hover {
+      cursor: pointer;
       background-color:#ffc300;
     }
   }

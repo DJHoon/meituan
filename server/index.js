@@ -7,17 +7,21 @@ const bodyParser = require('koa-bodyparser')
 const session = require('koa-generic-session')
 const json = require('koa-json')
 const Redis =require('koa-redis')
+const cors = require('koa2-cors')
 import dbConfig from './db/config'
 import passport from './interface/utils/passport'
 import users from './interface/users'
+import search from './interface/search'
 import geo from './interface/geo'
-
+import province from './interface/province'
+import home from './interface/home'
 const app = new Koa()
 
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 app.keys = ['mt', 'keyskeys']
 app.proxy = true
+app.use(cors());
 app.use(session({
   key:'mt',
   prefix: 'mt:uid',
@@ -53,6 +57,9 @@ async function start () {
   }
   app.use(users.routes()).use(users.allowedMethods())
   app.use(geo.routes()).use(geo.allowedMethods())
+  app.use(home.routes()).use(home.allowedMethods())
+  app.use(search.routes()).use(search.allowedMethods())
+  app.use(province.routes()).use(province.allowedMethods())
   app.use((ctx) => {
     ctx.status = 200
     ctx.respond = false // Bypass Koa's built-in response handling

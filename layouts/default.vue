@@ -1,6 +1,6 @@
 <template>
-  <el-container class="topBar" style="">
-    <el-header>
+  <el-container class="topBar layout-default" style="">
+    <el-header height="197px">
       <my-header/>
       <div class="searchBar">
         <el-row class="searchRow rowStyle" >
@@ -10,9 +10,9 @@
           <el-col :span="13" :offset="2" style="text-align: center">
             <search-bar/>
           </el-col>
-          <el-col></el-col>
+<!--          <el-col></el-col>-->
         </el-row>
-        <el-row>
+        <el-row v-show="$route.path=='/'">
           <el-col :span="11" :offset="6">
             <ul style="display: flex; justify-content: space-between;padding-top: 50px">
               <li><nuxt-link to="/waimai" style="color: #222;font-weight: 700;font-size: 16px">美团外卖</nuxt-link></li>
@@ -24,9 +24,11 @@
             </ul>
           </el-col>
         </el-row>
+<!--        <el-row v-show="$route.path=='/product'">-->
+<!--        </el-row>-->
       </div>
     </el-header>
-    <el-main>
+    <el-main style="overflow: hidden; padding: 0px;">
       <nuxt/>
     </el-main>
     <el-footer>
@@ -55,8 +57,8 @@ export default {
   background-color: #f8f8f8;
   margin: 0 !important;
   .el-header {
-    height: 100% !important;
-    padding: 0 !important;
+    height: 100% ;
+    padding: 0 ;
   }
 }
 
@@ -70,6 +72,7 @@ export default {
   background-color: #fff;
   padding-bottom: 10px;
   box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+  height: calc(197px - 40px);
 }
 .searchRow {
   padding-top: 30px;

@@ -1,6 +1,6 @@
 import Router from 'koa-router'
 import axios from './utils/axios'
-
+import Province from '../db/module/provinces'
 const router = new Router({
   prefix: '/geo'
 })
@@ -18,11 +18,15 @@ router.get('/getPosition',async(ctx, next) => {
       }
     }
 })
-router.get('/z',async(ctx, next) => {
-  global.console.log(ctx)
-    ctx.body ={
-      name: '111'
-    }
+router.get('/getProvince', async (ctx, next) => {
+  const Provinces = await Province.find({})
+  ctx.body = {
+    provinces: Provinces.map(item => {
+      return {
+        id: item.id,
+        value: item.value
+      }
+    })
+  }
 })
-
 export default router
